@@ -1,0 +1,31 @@
+class AppRoutes {
+  static const String splash = '/';
+  static const String onboarding = '/onboarding';
+  static const String auth = '/auth';
+  static const String signIn = '/sign-in';
+  static const String signUp = '/sign-up';
+  static const String personalize = '/personalize';
+  static const String activityQuestions = '/activity-questions';
+  static const String finalQuestions = '/final-questions';
+  static const String customPlanReady = '/custom-plan-ready';
+  static const String home = '/home';
+  static const String meals = '/meals';
+  static const String scanner = '/scanner';
+  static const String progress = '/progress';
+  static const String premium = '/premium';
+  static const String settings = '/settings';
+  static const String profile = '/profile';
+  static const String editProfile = '/edit-profile';
+  static const String notification = '/notification';
+  static const String dietPlan = '/diet-plan';
+  static const String mealLog = '/meal-log';
+  static const String waterTracker = '/water-tracker';
+  static const String bmiCalculator = '/bmi-calculator';
+  static const String adjustMacros = '/adjust-macros';
+  static const String goalWeight = '/goal-weight';
+  static const String weightHistory = '/weight-history';
+  static const String termsConditions = '/terms-conditions';
+  static const String privacyPolicy = '/privacy-policy';
+  static const String support = '/support';
+  static const String partnerProgram = '/partner-program';
+}

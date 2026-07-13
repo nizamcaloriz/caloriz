@@ -1,0 +1,4 @@
+# Netlify redirects
+/privacy       /privacy-policy.html    200
+/delete        /delete-account.html    200
+/*             /index.html             200
