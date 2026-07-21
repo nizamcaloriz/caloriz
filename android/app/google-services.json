@@ -1,0 +1,62 @@
+{
+  "project_info": {
+    "project_number": "878452415028",
+    "project_id": "caloriz-c538f",
+    "storage_bucket": "caloriz-c538f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878452415028:android:89b0f4f84c3d4274b60861",
+        "android_client_info": {
+          "package_name": "com.bhoomitechzone.caloriz"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878452415028-35hdg4pqqs1hcl334rl2ibhp4m7qhmdb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bhoomitechzone.caloriz",
+            "certificate_hash": "6c0db3d3b0c3fbd49b08f903b28f0b0a595c4a0a"
+          }
+        },
+        {
+          "client_id": "878452415028-6k9jsvccplbhf9nav19iemkjm0626jh9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.bhoomitechzone.caloriz",
+            "certificate_hash": "904981b9f89dcaecbd5d151665f0f5c2f81f799d"
+          }
+        },
+        {
+          "client_id": "878452415028-04715a71am8gs1kn7htnsbk6qa0qvjp9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAWMqP3kRutJzgnE2wZ6lw3jluAi_W1Ius"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878452415028-04715a71am8gs1kn7htnsbk6qa0qvjp9.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "878452415028-2h8a20nsfs7sht6gvir30cee6q3fm5gv.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.caloriz"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
