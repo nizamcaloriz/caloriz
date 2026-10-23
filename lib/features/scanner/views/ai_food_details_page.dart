@@ -630,7 +630,7 @@ class _AIFoodDetailsPageState extends State<AIFoodDetailsPage> {
                           _buildNutrientRow(
                             context,
                             'Sodium',
-                            '${(sodium * 1000).toStringAsFixed(0)}mg',
+                            '${sodium.toStringAsFixed(0)}mg',
                             isMain: true,
                           ),
                         ],
@@ -967,12 +967,18 @@ class _AIFoodDetailsPageState extends State<AIFoodDetailsPage> {
     double carbs,
     double fat,
   ) {
-    final total = protein + carbs + fat;
+    // Convert grams to calories (protein/carbs = 4 kcal/g, fat = 9 kcal/g)
+    // before computing percentages, so the split reflects true energy
+    // contribution rather than raw gram weight.
+    final proteinCals = protein * 4;
+    final carbsCals = carbs * 4;
+    final fatCals = fat * 9;
+    final total = proteinCals + carbsCals + fatCals;
     if (total == 0) return const SizedBox();
 
-    final proteinPercent = protein / total;
-    final carbsPercent = carbs / total;
-    final fatPercent = fat / total;
+    final proteinPercent = proteinCals / total;
+    final carbsPercent = carbsCals / total;
+    final fatPercent = fatCals / total;
 
     return Column(
       children: [

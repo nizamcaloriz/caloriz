@@ -1,7 +1,7 @@
 class AppConstants {
   // App Info
   static const String appName = 'Caloriz';
-  static const String appVersion = '1.0.0';
+  static const String appVersion = '1.4.9';
   
   // API Keys (Add your actual API keys here)
   static const String openAIApiKey = 'YOUR_OPENAI_API_KEY';
