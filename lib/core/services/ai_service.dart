@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:google_generative_ai/google_generative_ai.dart';
+import 'package:cloud_functions/cloud_functions.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'dart:io';
 import 'dart:convert';
@@ -8,23 +8,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../controllers/language_controller.dart';
 
 class AIService extends GetxService {
-  GenerativeModel? _model;
-  String? _apiKey;
   static const String _cachePrefix = 'food_scan_cache_';
+  final FirebaseFunctions _functions = FirebaseFunctions.instance;
 
   Future<AIService> init() async {
     try {
-      // Load .env file
+      // Still loaded for other keys used elsewhere in the app (e.g. AdMob).
+      // GEMINI_API_KEY is no longer read here — Gemini calls now go
+      // through the analyzeFood Firebase Cloud Function instead.
       await dotenv.load(fileName: ".env");
-
-      _apiKey = dotenv.env['GEMINI_API_KEY'];
-      if (_apiKey == null ||
-          _apiKey!.isEmpty ||
-          _apiKey == 'your_gemini_api_key_here') {
-        throw Exception('GEMINI_API_KEY not found in .env file');
-      }
-
-      print('✅ API Key loaded successfully');
+      print('✅ AI Service initialized (Gemini calls via Cloud Function)');
     } catch (e) {
       print('❌ Error initializing AI Service: $e');
     }
@@ -86,12 +79,6 @@ Return ONLY the JSON object, nothing else.''';
       print('🔍 [SCAN START] Time: ${DateTime.now()}');
       print('📸 Image path: $imagePath');
 
-      if (_apiKey == null) {
-        print('❌ [ERROR] API key not initialized');
-        throw Exception('API key not initialized');
-      }
-      print('✅ API key loaded');
-
       // Read image file
       final imageFile = File(imagePath);
       if (!await imageFile.exists()) {
@@ -122,67 +109,37 @@ Return ONLY the JSON object, nothing else.''';
         return cached;
       }
 
-      print('📡 [API CALL] No cache found, preparing AI models...');
+      print('📡 [API CALL] No cache found, calling Cloud Function...');
 
-      // Get strict calorie estimation prompt
-      final caloriePrompt = _getCaloriePrompt();
-      print('📝 Prompt: Detailed food analysis with nutrients...');
+      final base64Image = base64Encode(imageBytes);
 
-      // Send request to Gemini with image
-      final content = [
-        Content.multi([
-          TextPart(caloriePrompt),
-          DataPart('image/jpeg', imageBytes),
-        ]),
-      ];
-
-      GenerateContentResponse? response;
-      
-      final generationConfig = GenerationConfig(
-        temperature: 0.2,
-        maxOutputTokens: 1024,
-        topP: 0.95,
-        topK: 40,
-        responseMimeType: 'application/json',
-      );
+      String responseText = '{}';
 
       try {
-        print('🤖 Primary Model: gemini-2.5-flash-lite');
-        final primaryModel = GenerativeModel(
-          model: 'gemini-2.5-flash-lite',
-          apiKey: _apiKey!,
-          generationConfig: generationConfig,
+        print('🚀 Calling analyzeFood Cloud Function...');
+        final HttpsCallable callable = _functions.httpsCallable(
+          'analyzeFood',
+          options: HttpsCallableOptions(
+            timeout: const Duration(seconds: 60),
+          ),
         );
-        print('🚀 Sending request to Primary Model...');
-        response = await primaryModel.generateContent(content);
-      } catch (e) {
-        print('⚠️ Primary model failed: \$e');
-        print('🔄 Switching to Backup Model: gemini-3.1-flash-lite');
-        final backupModel = GenerativeModel(
-          model: 'gemini-3.1-flash-lite',
-          apiKey: _apiKey!,
-          generationConfig: generationConfig,
-        );
-        print('🚀 Sending request to Backup Model...');
-        response = await backupModel.generateContent(content);
-      }
 
-      final responseText = response?.text?.trim() ?? '{}';
+        final result = await callable.call<Map<String, dynamic>>({
+          'imageBase64': base64Image,
+          'mimeType': 'image/jpeg',
+          'language': currentLang,
+        });
 
-      print('📥 [RESPONSE] Raw: "$responseText"');
-      
-      // --- TOKEN TRACKING ---
-      if (response.usageMetadata != null) {
-        final usage = response.usageMetadata!;
-        print('🪙 [TOKEN USAGE]');
-        print('  • Prompt Tokens (Input): ${usage.promptTokenCount}');
-        print('  • Candidates Tokens (Output): ${usage.candidatesTokenCount}');
-        print('  • Total Tokens: ${usage.totalTokenCount}');
-        print('═══════════════════════════════════════════════════');
-      } else {
-        print('🪙 [TOKEN USAGE] No metadata returned by the API.');
+        responseText = (result.data['text'] as String?)?.trim() ?? '{}';
+        final modelUsed = result.data['modelUsed'] as String? ?? 'unknown';
+        print('✅ Response received from model: $modelUsed');
+        print('📥 [RESPONSE] Raw: "$responseText"');
+      } on FirebaseFunctionsException catch (e) {
+        print('❌ [ERROR] Cloud Function error: ${e.code} - ${e.message}');
+        rethrow;
       }
-      // ----------------------
+      // Token usage is now logged server-side (Firebase Functions logs)
+      // since Gemini is called from the Cloud Function, not the client.
 
       // Parse JSON response
       Map<String, dynamic> foodData = {

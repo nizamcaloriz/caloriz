@@ -241,7 +241,7 @@ class ScannerController extends GetxController {
 
       cameraController = CameraController(
         cameras.first,
-        ResolutionPreset.low,
+        ResolutionPreset.high,
         enableAudio: false,
       );
 

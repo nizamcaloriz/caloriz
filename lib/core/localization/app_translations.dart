@@ -488,7 +488,7 @@ class AppTranslations extends Translations {
       'connect_with_us': 'Connect With Us',
       'facebook': 'Facebook',
       'youtube': 'YouTube',
-      'app_version': 'Caloriz v1.0.0',
+      'app_version': 'Caloriz v1.0.2',
 
       // Privacy Policy Page
       'privacy_policy_title': 'Privacy Policy',
@@ -1018,7 +1018,7 @@ class AppTranslations extends Translations {
       'connect_with_us': 'Conéctate con Nosotros',
       'facebook': 'Facebook',
       'youtube': 'YouTube',
-      'app_version': 'Caloriz v1.0.0',
+      'app_version': 'Caloriz v1.0.2',
 
       // Privacy Policy Page
       'privacy_policy_title': 'Política de Privacidad',
@@ -1492,7 +1492,7 @@ class AppTranslations extends Translations {
       'connect_with_us': 'Verbinde Dich Mit Uns',
       'facebook': 'Facebook',
       'youtube': 'YouTube',
-      'app_version': 'Caloriz v1.0.0',
+      'app_version': 'Caloriz v1.0.2',
 
       // Privacy Policy Page
       'privacy_policy_title': 'Datenschutzrichtlinie',
@@ -2030,7 +2030,7 @@ class AppTranslations extends Translations {
       'connect_with_us': 'Connectez-vous avec Nous',
       'facebook': 'Facebook',
       'youtube': 'YouTube',
-      'app_version': 'Caloriz v1.0.0',
+      'app_version': 'Caloriz v1.0.2',
 
       // Privacy Policy Page
       'privacy_policy_title': 'Politique de Confidentialité',
@@ -2566,7 +2566,7 @@ class AppTranslations extends Translations {
       'connect_with_us': 'Conecte-se Conosco',
       'facebook': 'Facebook',
       'youtube': 'YouTube',
-      'app_version': 'Caloriz v1.0.0',
+      'app_version': 'Caloriz v1.0.2',
 
       // Privacy Policy Page
       'privacy_policy_title': 'Política de Privacidade',
@@ -3040,7 +3040,7 @@ class AppTranslations extends Translations {
       'connect_with_us': '私たちとつながる',
       'facebook': 'Facebook',
       'youtube': 'YouTube',
-      'app_version': 'Caloriz v1.0.0',
+      'app_version': 'Caloriz v1.0.2',
 
       // Privacy Policy Page
       'privacy_policy_title': 'プライバシーポリシー',
@@ -3588,7 +3588,7 @@ class AppTranslations extends Translations {
       'connect_with_us': 'Connettiti con Noi',
       'facebook': 'Facebook',
       'youtube': 'YouTube',
-      'app_version': 'Caloriz v1.0.0',
+      'app_version': 'Caloriz v1.0.2',
 
       // Privacy Policy Page
       'privacy_policy_title': 'Informativa sulla Privacy',
